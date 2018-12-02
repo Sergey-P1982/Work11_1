@@ -27,12 +27,20 @@ public class MyConnector {
     }
 
 
-    public void closeConnection() throws SQLException {
-        dbCon.close();
+    public void closeConnection() {
+        try {
+            dbCon.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void closeStatement(Statement statement) throws SQLException {
-        stmt.close();
+    public void closeStatement(Statement statement) {
+        try {
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

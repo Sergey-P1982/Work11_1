@@ -1,11 +1,11 @@
 import java.sql.*;
 
 public class DataBaseRunner {
-    private MyConnector connector = new MyConnector();
+    private MyConnector connector;
 
     public void run() {
         try {
-
+            connector = new MyConnector();
             connector.stmt.addBatch("INSERT INTO tasks VALUES(9, 'Send a letter2', 1003)");
             connector.stmt.addBatch("INSERT INTO tasks VALUES(10, 'Send a letter3', 1003)");
             connector.stmt.addBatch("INSERT INTO tasks VALUES(11, 'Send a letter4', 1003)");
@@ -32,11 +32,13 @@ public class DataBaseRunner {
             while (myRs4.next()) {
                 System.out.println("Tasks for workers 1003: " + myRs4.getString("task_descript"));
             }
-            connector.dbCon.close();
-            connector.closeStatement(connector.stmt);
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+        finally {
+            connector.closeConnection();
+            connector.closeStatement(connector.stmt);
         }
 
     }
